@@ -1,0 +1,24 @@
+{
+  "name": "prestashop/superbanner",
+  "license": "AFL-3.0",
+  "authors": [
+    {
+      "name": "me",
+      "email": "me@me.com"
+    },
+    {
+      "name": "PrestaShop Team"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Superbanner\\Controller\\Admin\\": "src/Controller/Admin",
+      "SuperBanner\\Model\\": "src/Model",
+      "Superbanner\\Grid\\Definition\\Factory\\" : "src/Grid/Definition/Factory"
+    },
+    "config": {
+      "prepend-autoloader": false
+    },
+    "type": "prestashop-module"
+  }
+}

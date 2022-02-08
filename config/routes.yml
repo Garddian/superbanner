@@ -1,0 +1,11 @@
+admin_superbanner_list:
+  path: /superbanner/list
+  methods: [GET]
+  defaults:
+    _controller: 'Superbanner\Controller\Admin\SuperBannerController::listAction'
+
+admin_superbanner_edit:
+  path: /superbanner/edit
+  methods: [GET]
+  defaults:
+    _controller: 'Superbanner\Controller\Admin\SuperBannerController::editAction'

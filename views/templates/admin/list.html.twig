@@ -1,0 +1,6 @@
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+{% block content %}
+coucou  {{ text }}
+{% endblock %}
+
+{% include '@PrestaShop/Admin/Common/Grid/grid_panel.html.twig' with {'grid': productsGrid} %}
