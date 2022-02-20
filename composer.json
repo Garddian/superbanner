@@ -14,7 +14,9 @@
     "psr-4": {
       "Superbanner\\Controller\\Admin\\": "src/Controller/Admin",
       "SuperBanner\\Model\\": "src/Model",
-      "Superbanner\\Grid\\Definition\\Factory\\" : "src/Grid/Definition/Factory"
+      "Superbanner\\Grid\\Definition\\Factory\\" : "src/Grid/Definition/Factory",
+      "Superbanner\\Grid\\Query\\" : "src/Grid/Query"
+
     },
     "config": {
       "prepend-autoloader": false

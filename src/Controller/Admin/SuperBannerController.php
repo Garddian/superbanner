@@ -4,6 +4,8 @@ namespace Superbanner\Controller\Admin;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
+
 use SuperBanner\Model\SuperBanner;
 
 class SuperBannerController extends FrameworkBundleAdminController
@@ -18,9 +20,11 @@ class SuperBannerController extends FrameworkBundleAdminController
     public function listAction(Request $request){
 
         $gridFactory = $this->container->get('superbanner.grid.banner_grid');
+        $emptySearchCriteria = new SearchCriteria([],1);
 
+        $superbannerGrid = $gridFactory->getGrid($emptySearchCriteria);
         return $this->render('@Modules/superbanner/views/templates/admin/list.html.twig', [
-            'productsGrid' => $this->presentGrid($gridFactory),
+            'superBannerGrid' => $this->presentGrid($superbannerGrid),
         ]);
     }
 

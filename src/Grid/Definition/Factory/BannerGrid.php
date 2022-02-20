@@ -4,6 +4,11 @@ namespace Superbanner\Grid\Definition\Factory;
 use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
+use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ActionColumn;
+use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ImageColumn;
+use PrestaShop\PrestaShop\Core\Grid\Action\Row\RowActionCollection;
+use PrestaShop\PrestaShop\Core\Grid\Action\Row\Type\LinkRowAction;
+use PrestaShop\PrestaShop\Core\Grid\Action\Row\Type\SubmitRowAction;
 
 class BannerGrid extends AbstractGridDefinitionFactory
 {
@@ -23,19 +28,53 @@ class BannerGrid extends AbstractGridDefinitionFactory
             ->add((new DataColumn('id_banner'))
                 ->setName($this->trans('ID', [], 'Admin.Global'))
                 ->setOptions([
-                    'field' => 'id_product',
+                    'field' => 'id_superbanner',
                 ])
             )
             ->add((new DataColumn('date_begin'))
                 ->setName($this->trans('Begin date', [], 'Superbanner.Admin.Banner'))
                 ->setOptions([
-                    'field' => 'reference',
+                    'field' => 'date_begin',
                 ])
             )
             ->add((new DataColumn('date_end'))
                 ->setName($this->trans('End date', [], 'Superbanner.Admin.Banner'))
                 ->setOptions([
-                    'field' => 'name',
+                    'field' => 'date_end',
+                ])
+            )
+            ->add((new ImageColumn('banner'))
+                ->setName($this->trans('Banner', [], 'Superbanner.Admin.Banner'))
+                ->setOptions([
+                    'src_field' => 'id_superbanner',
+                ])
+            )
+            ->add((new ActionColumn('actions'))
+                ->setOptions([
+                    'actions' => (new RowActionCollection())
+                        ->add((new LinkRowAction('edit'))
+                            ->setIcon('edit')
+                            ->setOptions([
+                                'route' => 'admin_superbanner_edit',
+                                'route_param_name' => 'id_superbanner',
+                                'route_param_field' => 'id_superbanner',
+                            ])
+                        )
+                        ->add((new SubmitRowAction('delete'))
+                            ->setName($this->trans('Delete', [], 'Admin.Actions'))
+                            ->setIcon('delete')
+                            ->setOptions([
+                                'method' => 'POST',
+                                'route' => 'admin_superbanner_edit',
+                                'route_param_name' => 'id_superbanner',
+                                'route_param_field' => 'id_superbanner',
+                                'confirm_message' => $this->trans(
+                                    'Delete selected item?',
+                                    [],
+                                    'Admin.Notifications.Warning'
+                                ),
+                            ])
+                        ),
                 ])
             )
             ;
