@@ -15,8 +15,9 @@
       "Superbanner\\Controller\\Admin\\": "src/Controller/Admin",
       "SuperBanner\\Model\\": "src/Model",
       "Superbanner\\Grid\\Definition\\Factory\\" : "src/Grid/Definition/Factory",
-      "Superbanner\\Grid\\Query\\" : "src/Grid/Query"
-
+      "Superbanner\\Grid\\Query\\" : "src/Grid/Query",
+      "Superbanner\\Grid\\Data\\Factory\\" : "src/Grid/Data/Factory",
+      "Superbanner\\Grid\\Adapter\\" : "src/Grid/Adapter"
     },
     "config": {
       "prepend-autoloader": false

@@ -1,27 +1,39 @@
 services:
-  superbanner.grid.banner_grid_factory:
+  superbanner.grid.definition.factory.banner_grid_definition:
     class: 'Superbanner\Grid\Definition\Factory\BannerGrid'
     parent: 'prestashop.core.grid.definition.factory.abstract_grid_definition'
     public: true
 
-  superbanner.grid.query.banner_query_builder:
+  superbanner.grid.query.builder.banner_query_builder:
     class: 'Superbanner\Grid\Query\BannerBuilder'
     parent: 'prestashop.core.grid.abstract_query_builder'
     public: true
 
-  superbanner.grid.data.factory.superbanner_data_factory:
+  superbanner.grid.adapter.banner_thumbnail_provider:
+    class: 'Superbanner\Grid\Adapter\BannerThumbnailProvider'
+    public: true
+    arguments:
+      - '@prestaShop.core.image.parser.image_tag_source_parser'
+
+  superbanner.grid.data.factory.banner_data_factory:
     class: 'PrestaShop\PrestaShop\Core\Grid\Data\Factory\DoctrineGridDataFactory'
     arguments:
-      - '@superbanner.grid.query.banner_query_builder' # service id of our query builder
+      - '@superbanner.grid.query.builder.banner_query_builder' # service id of our query builder
       - '@prestashop.core.hook.dispatcher' # every doctrine query builder needs the hook dispatcher
       - '@prestashop.core.grid.query.doctrine_query_parser' # parser to get the raw SQL query
       - 'superbanner' # this should match your grid id, in our case it's "products"
 
+  superbanner.grid.data.factory.banner_data:
+    class: 'Superbanner\Grid\Data\Factory\BannerGridData'
+    arguments:
+      - '@superbanner.grid.data.factory.banner_data_factory'
+      - '@superbanner.grid.adapter.banner_thumbnail_provider'
+
   superbanner.grid.banner_grid:
     class: 'PrestaShop\PrestaShop\Core\Grid\GridFactory'
     arguments:
-      - '@superbanner.grid.banner_grid_factory'                         # our definition factory
-      - '@superbanner.grid.data.factory.superbanner_data_factory'       # our data factory
+      - '@superbanner.grid.definition.factory.banner_grid_definition'   # our definition factory
+      - '@superbanner.grid.data.factory.banner_data'                    # our data factory
       - '@prestashop.core.grid.filter.form_factory'                     # core service needed by grid factory
       - '@prestashop.core.hook.dispatcher'                              # core service needed by grid factory
 

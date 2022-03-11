@@ -46,7 +46,7 @@ class BannerGrid extends AbstractGridDefinitionFactory
             ->add((new ImageColumn('banner'))
                 ->setName($this->trans('Banner', [], 'Superbanner.Admin.Banner'))
                 ->setOptions([
-                    'src_field' => 'id_superbanner',
+                    'src_field' => 'banner',
                 ])
             )
             ->add((new ActionColumn('actions'))

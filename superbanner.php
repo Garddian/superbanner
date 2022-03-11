@@ -84,7 +84,6 @@ PRIMARY KEY (`id_superbanner`)
 
     public function hookDisplayHome()
     {
-        var_dump($this->context->link->getModuleLink('superbanner','banners'));
         $this->context->smarty->assign(array(
             'superbanner_link' => $this->context->link->getModuleLink('superbanner', 'banners'),
             'superbanner_path' => Configuration::get('SUPERBANNER_PATH'),
