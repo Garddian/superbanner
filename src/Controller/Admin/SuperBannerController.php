@@ -33,4 +33,24 @@ class SuperBannerController extends FrameworkBundleAdminController
             'text' => 'edit !!!',
         ]);
     }
+
+    public function createAction(Request $request){
+        $superbannerFormBuilder = $this->get('superbanner.form.builder.superbanner_form_builder');
+        $superbannerForm = $superbannerFormBuilder->getForm();
+
+        $superbannerForm->handleRequest($request);
+
+        $superbannerFormHandler = $this->get('superbanner.form.handler.superbanner_form_handler');
+        $result = $superbannerFormHandler->handle($superbannerForm);
+
+        if (null !== $result->getIdentifiableObjectId()) {
+            $this->addFlash('success', $this->trans('Successful creation.', 'Admin.Notifications.Success'));
+
+            return $this->redirectToRoute('admin_superbanners_index');
+        }
+
+        return $this->render('@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig', [
+            'superbannerForm' => $superbannerForm->createView(),
+        ]);
+    }
 }

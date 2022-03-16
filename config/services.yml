@@ -37,4 +37,21 @@ services:
       - '@prestashop.core.grid.filter.form_factory'                     # core service needed by grid factory
       - '@prestashop.core.hook.dispatcher'                              # core service needed by grid factory
 
+  superbanner.form.data_provider.superbanner_form_data_provider:
+    class: 'Superbanner\Form\IdentifiableObject\DataProvider\SuperBannerFormDataProvider'
 
+  superbanner.form.data_handler.superbanner_form_data_handler:
+    class: 'Superbanner\Form\IdentifiableObject\DataHandler\SuperBannerFormDataHandler'
+
+  superbanner.form.handler.superbanner_form_handler:
+    class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler'
+    factory: 'prestashop.core.form.identifiable_object.handler.form_handler_factory:create'
+    arguments:
+      - '@superbanner.form.data_handler.superbanner_form_data_handler'
+
+  superbanner.form.builder.superbanner_form_builder:
+    class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
+    factory: 'prestashop.core.form.builder.form_builder_factory:create'
+    arguments:
+      - 'Superbanner\Form\Type\SuperbannerType'
+      - '@superbanner.form.data_provider.superbanner_form_data_provider'

@@ -9,3 +9,9 @@ admin_superbanner_edit:
   methods: [GET]
   defaults:
     _controller: 'Superbanner\Controller\Admin\SuperBannerController::editAction'
+
+admin_superbanner_create:
+  path: /superbanner/create
+  methods: [GET]
+  defaults:
+    _controller: 'Superbanner\Controller\Admin\SuperBannerController::createAction'

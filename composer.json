@@ -17,7 +17,10 @@
       "Superbanner\\Grid\\Definition\\Factory\\" : "src/Grid/Definition/Factory",
       "Superbanner\\Grid\\Query\\" : "src/Grid/Query",
       "Superbanner\\Grid\\Data\\Factory\\" : "src/Grid/Data/Factory",
-      "Superbanner\\Grid\\Adapter\\" : "src/Grid/Adapter"
+      "Superbanner\\Grid\\Adapter\\" : "src/Grid/Adapter",
+      "Superbanner\\Form\\IdentifiableObject\\DataHandler\\" : "src/Form",
+      "Superbanner\\Form\\IdentifiableObject\\DataProvider\\" : "src/Form",
+      "Superbanner\\Form\\Type\\" : "src/Form"
     },
     "config": {
       "prepend-autoloader": false
