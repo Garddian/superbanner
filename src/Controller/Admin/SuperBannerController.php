@@ -24,13 +24,28 @@ class SuperBannerController extends FrameworkBundleAdminController
 
         $superbannerGrid = $gridFactory->getGrid($emptySearchCriteria);
         return $this->render('@Modules/superbanner/views/templates/admin/list.html.twig', [
+            'layoutHeaderToolbarBtn' => $this->getToolbarButtons(),
             'superBannerGrid' => $this->presentGrid($superbannerGrid),
         ]);
     }
 
-    public function editAction(Request $request){
-        return $this->render('@Modules/superbanner/views/templates/admin/list.html.twig', [
-            'text' => 'edit !!!',
+    public function editAction(Request $request,$id_superbanner){
+        $superbannerFormBuilder = $this->get('superbanner.form.builder.superbanner_form_builder');
+        $superbannerForm = $superbannerFormBuilder->getFormFor($id_superbanner);
+
+        $superbannerForm->handleRequest($request);
+
+        $superbannerFormHandler = $this->get('superbanner.form.handler.superbanner_form_handler');
+        $result = $superbannerFormHandler->handleFor($id_superbanner,$superbannerForm);
+
+        if (null !== $result->getIdentifiableObjectId()) {
+            $this->addFlash('success', $this->trans('Successful creation.', 'Admin.Notifications.Success'));
+
+            return $this->redirectToRoute('admin_superbanner_list');
+        }
+
+        return $this->render('@Modules/superbanner/views/templates/admin/form.html.twig', [
+            'superbannerForm' => $superbannerForm->createView(),
         ]);
     }
 
@@ -46,11 +61,28 @@ class SuperBannerController extends FrameworkBundleAdminController
         if (null !== $result->getIdentifiableObjectId()) {
             $this->addFlash('success', $this->trans('Successful creation.', 'Admin.Notifications.Success'));
 
-            return $this->redirectToRoute('admin_superbanners_index');
+            return $this->redirectToRoute('admin_superbanner_list');
         }
 
-        return $this->render('@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig', [
+        return $this->render('@Modules/superbanner/views/templates/admin/form.html.twig', [
             'superbannerForm' => $superbannerForm->createView(),
         ]);
+    }
+
+    public function deleteAction(Request $request,$id_superbanner){
+
+
+       echo 'ocucou';
+    }
+
+    private function getToolbarButtons()
+    {
+        return [
+            'add' => [
+                'href' => $this->generateUrl('admin_superbanner_create'),
+                'desc' => $this->trans('New Super Banner', 'Modules.Superbanner.Admin'),
+                'icon' => 'add_circle_outline',
+            ],
+        ];
     }
 }

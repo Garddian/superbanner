@@ -26,16 +26,16 @@
 
 namespace Superbanner\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use PrestaShopBundle\Form\Admin\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-
+use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 
 /**
  * Class ContactType
  */
-class SuperbannerType extends AbstractType
+class SuperbannerType extends TranslatorAwareType
 {
 
     /**
@@ -45,8 +45,12 @@ class SuperbannerType extends AbstractType
     {
         $builder
             ->add('id_link_block', HiddenType::class)
-            ->add('date_begin', DateType::class)
-            ->add('date_end', DateType::class)
+            ->add('date_begin', DatePickerType::class,[
+                'label' => $this->trans('Date Begin :','Modules.Superbanner.Admin')])
+            ->add('date_end', DatePickerType::class,[
+                'label' => $this->trans('Date End :','Modules.Superbanner.Admin')])
+            ->add('banner_file', FileType::class,[
+                'label' => $this->trans('Banner :','Modules.Superbanner.Admin')])
         ;
     }
 }

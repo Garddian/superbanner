@@ -40,6 +40,13 @@ services:
   superbanner.form.data_provider.superbanner_form_data_provider:
     class: 'Superbanner\Form\IdentifiableObject\DataProvider\SuperBannerFormDataProvider'
 
+  superbanner.form.type.superbanner:
+    class: 'Superbanner\Form\Type\SuperbannerType'
+    parent: 'form.type.translatable.aware'
+    public: true
+    tags:
+      - { name: form.type }
+
   superbanner.form.data_handler.superbanner_form_data_handler:
     class: 'Superbanner\Form\IdentifiableObject\DataHandler\SuperBannerFormDataHandler'
 

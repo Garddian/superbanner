@@ -1,6 +1,7 @@
 <?php
 namespace Superbanner\Grid\Definition\Factory;
 
+use PrestaShop\PrestaShop\Core\Grid\Action\Row\AbstractRowAction;
 use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
@@ -65,7 +66,7 @@ class BannerGrid extends AbstractGridDefinitionFactory
                             ->setIcon('delete')
                             ->setOptions([
                                 'method' => 'POST',
-                                'route' => 'admin_superbanner_edit',
+                                'route' => 'admin_superbanner_delete',
                                 'route_param_name' => 'id_superbanner',
                                 'route_param_field' => 'id_superbanner',
                                 'confirm_message' => $this->trans(
@@ -73,6 +74,16 @@ class BannerGrid extends AbstractGridDefinitionFactory
                                     [],
                                     'Admin.Notifications.Warning'
                                 ),
+                            ])
+                        )
+                        ->add((new SubmitRowAction('test'))
+                            ->setName($this->trans('plop', [], 'Admin.Actions'))
+                            ->setIcon('delete')
+                            ->setOptions([
+                                'method' => 'POST',
+                                'route' => 'admin_superbanner_edit',
+                                'route_param_name' => 'id_superbanner',
+                                'route_param_field' => 'id_superbanner',
                             ])
                         ),
                 ])

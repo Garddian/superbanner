@@ -53,17 +53,33 @@ class BannerThumbnailProvider implements ImageProviderInterface
     }
 
     /**
+     * @param int $bannerId
+     * @return string
+     */
+    public static function getFolderPathImage(): string
+    {
+        $conf = new Configuration();
+        return  _PS_ROOT_DIR_.$conf->get('SUPERBANNER_PATH');
+    }
+
+    public static function getRealPathImage(int $bannerId): string
+    {
+        return  self::getFolderPathImage() . $bannerId . '.png';
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getPath($bannerId)
     {
-        $conf = new Configuration();
-        $pathToImage = _PS_ROOT_DIR_.$conf->get('SUPERBANNER_PATH') . $bannerId . '.png';
+        $pathToImage = self::getRealPathImage((int)$bannerId);
         $imageTag = ImageManager::thumbnail(
             $pathToImage,
-            'banner_mini_' . $bannerId . '.jpg',
+            'superbanner_mini_' . $bannerId . '.png',
             HelperList::LIST_THUMBNAIL_SIZE,
-            'png'
+            'png',
+            true,
+            true
         );
         return $this->imageTagSourceParser->parse($imageTag);
     }

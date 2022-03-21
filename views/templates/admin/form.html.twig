@@ -1,1 +1,25 @@
-{
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+{% form_theme superbannerForm 'PrestaShopBundle:Admin/TwigTemplateForm:prestashop_ui_kit.html.twig' %}
+
+{% block content %}
+    {{ form_start(superbannerForm) }}
+    <div class="card">
+        <h3 class="card-header">
+            <i class="material-icons">settings</i> {{ 'Text form types'|trans({}, 'Modules.DemoSymfonyForm.Admin') }}
+        </h3>
+        <div class="card-block row">
+            <div class="card-text">
+                {{ form_widget(superbannerForm) }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary float-right" id="save-button">
+                    {{ 'Save'|trans({}, 'Admin.Actions') }}
+                </button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(superbannerForm) }}
+{% endblock %}

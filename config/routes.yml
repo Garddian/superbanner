@@ -4,14 +4,20 @@ admin_superbanner_list:
   defaults:
     _controller: 'Superbanner\Controller\Admin\SuperBannerController::listAction'
 
+admin_superbanner_create:
+  path: /superbanner/create
+  methods: [GET,POST]
+  defaults:
+    _controller: 'Superbanner\Controller\Admin\SuperBannerController::createAction'
+
 admin_superbanner_edit:
-  path: /superbanner/edit
-  methods: [GET]
+  path: /superbanner/edit/{id_superbanner}
+  methods: [ GET,POST ]
   defaults:
     _controller: 'Superbanner\Controller\Admin\SuperBannerController::editAction'
 
-admin_superbanner_create:
-  path: /superbanner/create
-  methods: [GET]
+admin_superbanner_delete:
+  path: /superbanner/delete/{id_superbanner}
+  methods: [POST]
   defaults:
-    _controller: 'Superbanner\Controller\Admin\SuperBannerController::createAction'
+    _controller: 'Superbanner\Controller\Admin\SuperBannerController::deleteAction'
