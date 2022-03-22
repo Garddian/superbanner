@@ -12,12 +12,12 @@ admin_superbanner_create:
 
 admin_superbanner_edit:
   path: /superbanner/edit/{id_superbanner}
-  methods: [ GET,POST ]
+  methods: [GET,POST]
   defaults:
     _controller: 'Superbanner\Controller\Admin\SuperBannerController::editAction'
 
 admin_superbanner_delete:
   path: /superbanner/delete/{id_superbanner}
-  methods: [POST]
+  methods: [GET,POST]
   defaults:
     _controller: 'Superbanner\Controller\Admin\SuperBannerController::deleteAction'

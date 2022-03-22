@@ -49,10 +49,13 @@ final class SuperBannerFormDataHandler implements FormDataHandlerInterface
         $data['banner_file']->move(BannerThumbnailProvider::getFolderPathImage(),$superBannerObjectModel->id.'.png');
     }
 
-    public function delete($id){
+    public function remove($id){
         $superBannerObjectModel = new SuperBanner($id);
-        $superBannerObjectModel->delete();
-
-
+        $res = $superBannerObjectModel->delete();
+        if($res)
+        {
+            $res = unlink(BannerThumbnailProvider::getRealPathImage($id));
+        }
+        return $res;
     }
 }

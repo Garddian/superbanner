@@ -61,31 +61,15 @@ class BannerGrid extends AbstractGridDefinitionFactory
                                 'route_param_field' => 'id_superbanner',
                             ])
                         )
-                        ->add((new SubmitRowAction('delete'))
+                        ->add((new LinkRowAction('delete'))
                             ->setName($this->trans('Delete', [], 'Admin.Actions'))
                             ->setIcon('delete')
                             ->setOptions([
-                                'method' => 'POST',
                                 'route' => 'admin_superbanner_delete',
                                 'route_param_name' => 'id_superbanner',
                                 'route_param_field' => 'id_superbanner',
-                                'confirm_message' => $this->trans(
-                                    'Delete selected item?',
-                                    [],
-                                    'Admin.Notifications.Warning'
-                                ),
                             ])
                         )
-                        ->add((new SubmitRowAction('test'))
-                            ->setName($this->trans('plop', [], 'Admin.Actions'))
-                            ->setIcon('delete')
-                            ->setOptions([
-                                'method' => 'POST',
-                                'route' => 'admin_superbanner_edit',
-                                'route_param_name' => 'id_superbanner',
-                                'route_param_field' => 'id_superbanner',
-                            ])
-                        ),
                 ])
             )
             ;

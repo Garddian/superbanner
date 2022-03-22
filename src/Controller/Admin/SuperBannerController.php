@@ -2,6 +2,7 @@
 namespace Superbanner\Controller\Admin;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use Superbanner\Form\IdentifiableObject\DataHandler\SuperBannerFormDataHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
@@ -29,26 +30,6 @@ class SuperBannerController extends FrameworkBundleAdminController
         ]);
     }
 
-    public function editAction(Request $request,$id_superbanner){
-        $superbannerFormBuilder = $this->get('superbanner.form.builder.superbanner_form_builder');
-        $superbannerForm = $superbannerFormBuilder->getFormFor($id_superbanner);
-
-        $superbannerForm->handleRequest($request);
-
-        $superbannerFormHandler = $this->get('superbanner.form.handler.superbanner_form_handler');
-        $result = $superbannerFormHandler->handleFor($id_superbanner,$superbannerForm);
-
-        if (null !== $result->getIdentifiableObjectId()) {
-            $this->addFlash('success', $this->trans('Successful creation.', 'Admin.Notifications.Success'));
-
-            return $this->redirectToRoute('admin_superbanner_list');
-        }
-
-        return $this->render('@Modules/superbanner/views/templates/admin/form.html.twig', [
-            'superbannerForm' => $superbannerForm->createView(),
-        ]);
-    }
-
     public function createAction(Request $request){
         $superbannerFormBuilder = $this->get('superbanner.form.builder.superbanner_form_builder');
         $superbannerForm = $superbannerFormBuilder->getForm();
@@ -69,10 +50,36 @@ class SuperBannerController extends FrameworkBundleAdminController
         ]);
     }
 
+    public function editAction(Request $request,$id_superbanner){
+        $superbannerFormBuilder = $this->get('superbanner.form.builder.superbanner_form_builder');
+        $superbannerForm = $superbannerFormBuilder->getFormFor($id_superbanner);
+
+        $superbannerForm->handleRequest($request);
+
+        $superbannerFormHandler = $this->get('superbanner.form.handler.superbanner_form_handler');
+        $result = $superbannerFormHandler->handleFor($id_superbanner,$superbannerForm);
+
+        if (null !== $result->getIdentifiableObjectId()) {
+            $this->addFlash('success', $this->trans('Successful creation.', 'Admin.Notifications.Success'));
+
+            return $this->redirectToRoute('admin_superbanner_list');
+        }
+
+        return $this->render('@Modules/superbanner/views/templates/admin/form.html.twig', [
+            'superbannerForm' => $superbannerForm->createView(),
+        ]);
+    }
+
     public function deleteAction(Request $request,$id_superbanner){
+        $handler = new SuperBannerFormDataHandler();
+        $result = $handler->remove($id_superbanner);
+        if ($result) {
+            $this->addFlash('success', $this->trans('Successful delete.', 'Admin.Notifications.Success'));
+        } else {
+            $this->addFlash('fail', $this->trans('Unsuccessful delete.', 'Admin.Notifications.Fail'));
+        }
 
-
-       echo 'ocucou';
+        return $this->redirectToRoute('admin_superbanner_list');
     }
 
     private function getToolbarButtons()
